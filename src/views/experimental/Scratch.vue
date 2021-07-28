@@ -4,6 +4,9 @@
         <BlocklyComponent
             id="blockly"
             ref="foo">
+            <block type="CreativeWork" />
+            <block type="Person" />
+            <block type="Organization" />
             <block type="true_if" />
             <block type="has_true_assertion" />
             <block type="has_true_assertion_within" />
@@ -36,6 +39,66 @@
 import * as Blockly from 'blockly/core';
 import BlocklyComponent from '../../components/BlocklyComponent.vue';
 import BlocklyJS from 'blockly/javascript';
+
+
+Blockly.Blocks["CreativeWork"] = {
+    init: function() {
+        let it = {
+            "@id": "<generated>",
+            "@context": "http://schema.org",
+            "@type": "CreativeWork",
+            "name": "A Storm of Crows",
+            "author": "http://my.people/george",
+            "description": "A book about people and stuff."
+        };
+        this.appendDummyInput().appendField(it["@type"]);
+        this.appendDummyInput().appendField(it["@id"]);
+        this.appendDummyInput().appendField("Name: ").appendField(new Blockly.FieldTextInput(it.name), "LangString");
+        this.appendDummyInput().appendField("Description: ").appendField(new Blockly.FieldTextInput(it.description), "LangString");
+        this.appendDummyInput().appendField("Code: ").appendField(new Blockly.FieldTextInput(it.code), "LangString");
+        this.appendValueInput("Person").setCheck(["Person", "Organization"]).appendField("Author");
+        this.setOutput(true, it["@type"]);
+        this.setPreviousStatement(false);
+        this.setNextStatement(false);
+        this.setColour(190);
+    }
+};
+Blockly.Blocks["Person"] = {
+    init: function() {
+        let it = {
+            "@id": "<generated>",
+            "@context": "http://schema.org",
+            "@type": "Person",
+            "name": "George RR"
+        };
+        this.appendDummyInput().appendField(it["@type"]);
+        this.appendDummyInput().appendField(it["@id"]);
+        this.appendDummyInput().appendField("Name: ").appendField(new Blockly.FieldTextInput(it.name), "LangString");
+        this.setOutput(true, it["@type"]);
+        this.setPreviousStatement(false);
+        this.setNextStatement(false);
+        this.setColour(190);
+    }
+};
+
+Blockly.Blocks["Organization"] = {
+    init: function() {
+        let it = {
+            "@id": "<generated>",
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "name": "HBO"
+        };
+        this.appendDummyInput().appendField(it["@type"]);
+        this.appendDummyInput().appendField(it["@id"]);
+        this.appendDummyInput().appendField("Name: ").appendField(new Blockly.FieldTextInput(it.name), "LangString");
+        this.setOutput(true, it["@type"]);
+        this.setPreviousStatement(false);
+        this.setNextStatement(false);
+        this.setColour(190);
+    }
+};
+
 
 Blockly.Blocks["true_if"] = {
     init: function() {
